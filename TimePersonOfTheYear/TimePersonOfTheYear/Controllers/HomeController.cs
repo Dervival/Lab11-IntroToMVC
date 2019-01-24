@@ -10,12 +10,25 @@ namespace TimePersonOfTheYear.Controllers
 {
     public class HomeController : Controller
     {
+        private static readonly string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "../../../wwwroot/personOfTheYear.csv");
         public IActionResult Index()
         {
-            string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "../../../wwwroot/personOfTheYear.csv");
+            //allPeople = System.IO.File.ReadAllLines("../../../../../personOfTheYear.csv");
+            return View();
+        }
+
+        [HttpPost]
+        //parameters must match the asp-for tag names
+        public IActionResult Index(int startYear, int endYear)
+        {
+            
+            return RedirectToAction("Results", new { startYear, endYear });
+        }
+
+        public IActionResult Results(int startYear, string endYear)
+        {
             string[] allPeople = System.IO.File.ReadAllLines(path);
             List<TimePerson> allTimePeople = ConvertCSVToTimePersonList(allPeople);
-            //allPeople = System.IO.File.ReadAllLines("../../../../../personOfTheYear.csv");
             return View(allTimePeople);
         }
 
