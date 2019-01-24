@@ -26,7 +26,7 @@ namespace TimePersonOfTheYear.Controllers
 
         public IActionResult Results(int startYear, int endYear)
         {
-            if (startYear < endYear && startYear > 1926 && endYear < 2017)
+            if (startYear <= endYear && startYear > 1926 && endYear < 2017)
             {
                 string[] allPeople = System.IO.File.ReadAllLines(path);
                 List<TimePerson> allTimePeople = ConvertCSVToTimePersonList(allPeople);
