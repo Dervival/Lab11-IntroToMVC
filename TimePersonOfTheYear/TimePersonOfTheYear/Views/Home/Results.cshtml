@@ -1,13 +1,45 @@
 ﻿@model List<TimePersonOfTheYear.Models.TimePerson>
+<!DOCTYPE html>
+<link href="~/StyleSheet.css" rel="stylesheet" />
 
-<h2>Time People of the Year</h2>
-@foreach (TimePersonOfTheYear.Models.TimePerson person in Model)
-{
-    <h3>@person.Name: Time Person of the Year @person.Year</h3>
-    <p>Lived @person.BirthYear Died @person.DeathYear</p>
-    <p>Honor: @person.Honor</p>
-    <p>Country: @person.Country</p>
-    <p>Title: @person.Title</p>
-    <p>Category: @person.Category</p>
-    <p>Context: @person.Context</p>
-}
+<h1>Time People of the Year</h1>
+<table>
+    <tr>
+        <th>Year</th>
+        <th>Name</th>
+        <th>Title</th>
+        <th>Honor</th>
+        <th>Context</th>
+        <th>Category</th>
+        <th>Country</th>
+        <th>Born</th>
+        <th>Died</th>
+    </tr>
+    @foreach (TimePersonOfTheYear.Models.TimePerson person in Model)
+    {
+    <tr>
+        <td>@person.Year</td>
+        <td>@person.Name</td>
+        <td>@person.Title</td>
+        <td>@person.Honor</td>
+        <td>@person.Context</td>
+        <td>@person.Category</td>
+        <td>@person.Country</td>
+        @if(person.BirthYear != -1)
+            {
+            <td>@person.BirthYear</td>
+            }
+        else{
+        <td>N/A</td>
+        }
+        @if(person.DeathYear != -1)
+            {
+            <td>@person.DeathYear</td>
+            }
+        else
+            {
+            <td>N/A</td>
+            }
+    </tr>
+    }
+</table>
