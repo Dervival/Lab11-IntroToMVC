@@ -21,15 +21,26 @@ namespace TimePersonOfTheYear.Controllers
         //parameters must match the asp-for tag names
         public IActionResult Index(int startYear, int endYear)
         {
-            
             return RedirectToAction("Results", new { startYear, endYear });
         }
 
-        public IActionResult Results(int startYear, string endYear)
+        public IActionResult Results(int startYear, int endYear)
         {
-            string[] allPeople = System.IO.File.ReadAllLines(path);
-            List<TimePerson> allTimePeople = ConvertCSVToTimePersonList(allPeople);
-            return View(allTimePeople);
+            if (startYear < endYear && startYear > 1926 && endYear < 2017)
+            {
+                string[] allPeople = System.IO.File.ReadAllLines(path);
+                List<TimePerson> allTimePeople = ConvertCSVToTimePersonList(allPeople);
+                var filterQuery = from people in allTimePeople
+                                     where people.Year >= startYear && people.Year <= endYear
+                                     select people;
+                List<TimePerson> filteredPeople = new List<TimePerson>();
+                foreach(TimePerson person in filterQuery)
+                {
+                    filteredPeople.Add(person);
+                }
+                return View(filteredPeople);
+            }
+            return RedirectToAction("Index");
         }
 
         public List<TimePerson> ConvertCSVToTimePersonList(string[] csv)
