@@ -16,5 +16,20 @@ namespace TimePersonOfTheYear.Models
         public string Title { get; set; }
         public string Category { get; set; }
         public string Context { get; set; }
+
+        public static List<TimePerson> GetPersons(List<TimePerson> allTimePeople, int startYear, int endYear)
+        {
+            var filterQuery = from people in allTimePeople
+                              where people.Year >= startYear && people.Year <= endYear
+                              select people;
+            List<TimePerson> filteredPeople = new List<TimePerson>();
+            foreach (TimePerson person in filterQuery)
+            {
+                filteredPeople.Add(person);
+            }
+            return filteredPeople;
+        }
     }
+
+    
 }

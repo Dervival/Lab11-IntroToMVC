@@ -30,14 +30,15 @@ namespace TimePersonOfTheYear.Controllers
             {
                 string[] allPeople = System.IO.File.ReadAllLines(path);
                 List<TimePerson> allTimePeople = ConvertCSVToTimePersonList(allPeople);
-                var filterQuery = from people in allTimePeople
-                                     where people.Year >= startYear && people.Year <= endYear
-                                     select people;
-                List<TimePerson> filteredPeople = new List<TimePerson>();
-                foreach(TimePerson person in filterQuery)
-                {
-                    filteredPeople.Add(person);
-                }
+                List<TimePerson> filteredPeople = TimePerson.GetPersons(allTimePeople, startYear, endYear);
+                //var filterQuery = from people in allTimePeople
+                //                     where people.Year >= startYear && people.Year <= endYear
+                //                     select people;
+                //List<TimePerson> filteredPeople = new List<TimePerson>();
+                //foreach(TimePerson person in filterQuery)
+                //{
+                //    filteredPeople.Add(person);
+                //}
                 return View(filteredPeople);
             }
             return RedirectToAction("Index");
