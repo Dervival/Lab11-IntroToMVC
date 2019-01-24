@@ -30,8 +30,22 @@ namespace TimePersonOfTheYear.Controllers
                 timePerson.Honor = splitCsv[1];
                 timePerson.Name = splitCsv[2];
                 timePerson.Country = splitCsv[3];
-                timePerson.BirthYear = Convert.ToInt32(splitCsv[4]);
-                timePerson.DeathYear = Convert.ToInt32(splitCsv[5]);
+                if(Int32.TryParse(splitCsv[4], out int birthYear))
+                {
+                    timePerson.BirthYear = birthYear;
+                }
+                else
+                {
+                    timePerson.BirthYear = -1;
+                }
+                if (Int32.TryParse(splitCsv[5], out int deathYear))
+                {
+                    timePerson.DeathYear = deathYear;
+                }
+                else
+                {
+                    timePerson.DeathYear = -1;
+                }
                 timePerson.Title = splitCsv[6];
                 timePerson.Category = splitCsv[7];
                 timePerson.Context = splitCsv[8];

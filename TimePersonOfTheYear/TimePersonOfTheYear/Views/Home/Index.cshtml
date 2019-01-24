@@ -1,1 +1,13 @@
-﻿Testing basic index page.
+﻿@model List<TimePersonOfTheYear.Models.TimePerson>
+
+<h2>Time People of the Year</h2>
+@foreach (TimePersonOfTheYear.Models.TimePerson person in Model)
+{
+    <h3>@person.Name: Time Person of the Year @person.Year</h3>
+    <p>Lived @person.BirthYear Died @person.DeathYear</p>
+    <p>Honor: @person.Honor</p>
+    <p>Country: @person.Country</p>
+    <p>Title: @person.Title</p>
+    <p>Category: @person.Category</p>
+    <p>Context: @person.Context</p>
+}
